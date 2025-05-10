@@ -297,10 +297,21 @@ function mapCSVDataToItemData(csvDataRow) {
   };
 
   const description = generateDescription(attributes);
+
+  // ダメージタイプに応じて画像を設定
+  let imgPath = "icons/Arts/SwordsArtsIcons.png";
+  if (attributes.damagetype.value === "@{sdb}") {
+    imgPath = "icons/Arts/StompArtsIcons.png";
+  } else if (attributes.damagetype.value === "@{ddb}") {
+    imgPath = "icons/Arts/SwordsArtsIcons.png";
+  } else if (attributes.damagetype.value === "@{idb}") {
+    imgPath = "icons/Arts/SpearArtsIcons.png";
+  }
+
   return {
     name: csvDataRow.name,
     type: "cItem",
-    //img: 'icons/Arts/SwordsArtsIcons.png', //好きな画像を指定、もしくはcsvで指定、もしくは@{sdb}などを読み取って自動で振り分け
+    img: imgPath,
     system: {
       description: description,
       roll: "#{skilldamage} + #{damagetype} + @{skmod}",
